@@ -25,7 +25,7 @@ export default function Home() {
       const formData = new FormData;
       formData.append('file' , file)
    
-      await fetch("api/upload", {
+      await fetch("upload", {
           method:"POST",
           body:formData
       }).then(data=>{
@@ -40,9 +40,9 @@ export default function Home() {
 
   return (
       <>
-        <form method="POST" onSubmit={handleSubmit}>
+        <form className="flex justify-center " method="POST" onSubmit={handleSubmit}>
           <input type="file" name="file"  onChange={handleChange} />
-          <button type="submit" >push</button>
+          <button className="px-5 py-2 rounded-md bg-blue-600 text-white" type="submit" >push</button>
         </form>
       
       </>
