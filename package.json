@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "nodemon server.js",
     "build": "next build",
     "start": "node server.js",
     "lint": "next lint"
@@ -21,6 +21,7 @@
     "typescript": "5.0.3"
   },
   "devDependencies": {
-    "@types/express": "^4.17.17"
+    "@types/express": "^4.17.17",
+    "nodemon": "^2.0.22"
   }
 }

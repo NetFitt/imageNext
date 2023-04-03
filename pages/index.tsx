@@ -1,3 +1,4 @@
+import { NextPage } from "next"
 import { ChangeEvent, FormEvent, useState } from "react"
 
 
@@ -32,10 +33,7 @@ export default function Home() {
         console.log(data.json());
         
       })
-     
-      
   
-    
     }
   
 }
