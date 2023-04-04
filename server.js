@@ -1,7 +1,10 @@
 // all required packages 
 const express = require('express')
 const next = require('next')
-const multer = require('multer')
+const { Client }= require('pg')
+
+
+
 
 // custom next server configues (so that pages would render too)
 
@@ -11,33 +14,43 @@ const handle = app.getRequestHandler()
 
 // Routers
 
-const  image_Router = require('./server/routes/upload-image.router')
+const  image_Router = require('./server/routes/upload-image.router');
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, './public/uploads')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null,  Date.now() + "_" + file.originalname  )
-//   }
-// })
+const pool = new Client({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'study',
+  password: 'mohamed2001',
+  port: 5432, // your PostgreSQL port number
+});
 
-// const upload = multer({ storage: storage })
+pool.connect()
+
 
 app.prepare().then(() => {
   const server = express()
 
   server.use(express.json())
 
+  // using our routes
+  
+
   server.use('/upload' , image_Router)
 
-  // server.post('/upload', upload.single('file'), (req, res) => {
-  //   console.log(req.file)
-  //   res.send({ message: 'File uploaded successfully' })
-  // })
-
-
-
+  server.get('/poster' , async (req,res)=>{
+    
+     await pool.query('SELECT * FROM users',(err , res)=>{
+      if(err){
+        console.log(err);
+      }else{
+        console.log(res.rows);
+      
+      }
+     })
+     
+    return app.render(req , res , '/poster')
+    
+  })
 
 
   server.all('*', (req, res) => {
